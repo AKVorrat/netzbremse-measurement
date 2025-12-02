@@ -11,6 +11,22 @@ if (!acceptedPrivacyPolicy) {
 	process.exit(1)
 }
 
+// Print details about your connection
+const metaUrl = "https://speed.cloudflare.com/meta"
+try {
+	const resp = await fetch(metaUrl)
+	const { clientIp, asn, asOrganization, country } = await resp.json()
+	console.log("Your internet connection:")
+	console.log({
+		clientIp,
+		asn,
+		asOrganization,
+		country,
+	}, "\n")
+} catch {
+	console.warn(`Failed to query connection metadata from "${metaUrl}"`)
+}
+
 function delay(delayMs) {
 	return new Promise(resolve => setTimeout(() => resolve(), delayMs))
 }
