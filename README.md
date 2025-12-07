@@ -31,8 +31,6 @@ docker compose logs -f
 
 Anonymized results are automatically submitted to our data collection service.
 
-> **Note:** We currently provide a prebuilt Docker image for x86_64 systems. To run on ARM devices (e.g., Raspberry Pi), you can clone this repository and build the image on the device. 
-
 ## Run using Node.js (without Docker)
 
 Clone this repository:

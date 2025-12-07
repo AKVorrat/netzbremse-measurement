@@ -51,7 +51,6 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-#         push: ${{ github.ref == 'refs/heads/main' }}
-          push: true
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
