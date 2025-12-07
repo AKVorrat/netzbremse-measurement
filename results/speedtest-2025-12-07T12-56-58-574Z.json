@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "result": {
+    "download": 24017935.98766035,
+    "upload": 7581982.57465731,
+    "latency": 19.700038500069848,
+    "jitter": 5.435971512811557,
+    "downLoadedLatency": 58.90009200002328,
+    "downLoadedJitter": 15.799936444452205,
+    "upLoadedLatency": 57.450049500011644,
+    "upLoadedJitter": 22.610437421033026
+  }
+}
