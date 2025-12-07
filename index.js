@@ -55,7 +55,19 @@ async function runSpeedtest() {
 			await page.evaluate(() => window.nbSpeedtestOptions = { acceptedPolicy: true });
 		}
 
-		await page.exposeFunction("nbSpeedtestOnResult", (result) => console.log("Result:", result))
+		const fs = await import('fs');
+		const path = await import('path');
+		await page.exposeFunction("nbSpeedtestOnResult", (result) => {
+			console.log("Result:", result);
+			try {
+				const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+				const filename = path.join('results', `speedtest-${timestamp}.json`);
+				fs.writeFileSync(filename, JSON.stringify(result, null, 2));
+				console.log(`Saved result to ${filename}`);
+			} catch (err) {
+				console.error('Failed to save result:', err);
+			}
+		})
 		const finished = new Promise(async (resolve) => await page.exposeFunction("nbSpeedtestOnFinished", () => resolve()))
 
 		console.log("Starting speedtest", new Date().toISOString())
