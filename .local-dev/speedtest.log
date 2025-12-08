@@ -1,0 +1,81 @@
+Attaching to netzbremse-speedtest
+[36mnetzbremse-speedtest |[0m 
+[36mnetzbremse-speedtest |[0m > netzbremse-headless-speedtest@1.0.0 start
+[36mnetzbremse-speedtest |[0m > node index.js
+[36mnetzbremse-speedtest |[0m 
+[36mnetzbremse-speedtest |[0m Your internet connection:
+[36mnetzbremse-speedtest |[0m {
+[36mnetzbremse-speedtest |[0m   clientIp: undefined,
+[36mnetzbremse-speedtest |[0m   asn: undefined,
+[36mnetzbremse-speedtest |[0m   asOrganization: undefined,
+[36mnetzbremse-speedtest |[0m   country: undefined
+[36mnetzbremse-speedtest |[0m } 
+[36mnetzbremse-speedtest |[0m 
+[36mnetzbremse-speedtest |[0m Starting speedtest 2025-12-07T12:17:43.173Z
+[36mnetzbremse-speedtest |[0m Result: {
+[36mnetzbremse-speedtest |[0m   success: true,
+[36mnetzbremse-speedtest |[0m   result: {
+[36mnetzbremse-speedtest |[0m     download: 25972558.949889243,
+[36mnetzbremse-speedtest |[0m     upload: 7033410.189259135,
+[36mnetzbremse-speedtest |[0m     latency: 19.70016349925494,
+[36mnetzbremse-speedtest |[0m     jitter: 3.025653050899969,
+[36mnetzbremse-speedtest |[0m     downLoadedLatency: 79.64998200037253,
+[36mnetzbremse-speedtest |[0m     downLoadedJitter: 53.146673667858764,
+[36mnetzbremse-speedtest |[0m     upLoadedLatency: 47.600023001490115,
+[36mnetzbremse-speedtest |[0m     upLoadedJitter: 25.8684134212487
+[36mnetzbremse-speedtest |[0m   }
+[36mnetzbremse-speedtest |[0m }
+[36mnetzbremse-speedtest |[0m Result: {
+[36mnetzbremse-speedtest |[0m   success: true,
+[36mnetzbremse-speedtest |[0m   result: {
+[36mnetzbremse-speedtest |[0m     download: 16965680.98943926,
+[36mnetzbremse-speedtest |[0m     upload: 8493973.228803013,
+[36mnetzbremse-speedtest |[0m     latency: 20.25008,
+[36mnetzbremse-speedtest |[0m     jitter: 2.7641037176812615,
+[36mnetzbremse-speedtest |[0m     downLoadedLatency: 55.84994549962747,
+[36mnetzbremse-speedtest |[0m     downLoadedJitter: 30.93682968464187,
+[36mnetzbremse-speedtest |[0m     upLoadedLatency: 47.70012250111759,
+[36mnetzbremse-speedtest |[0m     upLoadedJitter: 30.057852631265238
+[36mnetzbremse-speedtest |[0m   }
+[36mnetzbremse-speedtest |[0m }
+[36mnetzbremse-speedtest |[0m Result: {
+[36mnetzbremse-speedtest |[0m   success: true,
+[36mnetzbremse-speedtest |[0m   result: {
+[36mnetzbremse-speedtest |[0m     download: 26416746.49319943,
+[36mnetzbremse-speedtest |[0m     upload: 8016349.099369675,
+[36mnetzbremse-speedtest |[0m     latency: 20.60006949962747,
+[36mnetzbremse-speedtest |[0m     jitter: 8.67686084649772,
+[36mnetzbremse-speedtest |[0m     downLoadedLatency: 59.89998750037253,
+[36mnetzbremse-speedtest |[0m     downLoadedJitter: 31.25295882291583,
+[36mnetzbremse-speedtest |[0m     upLoadedLatency: 52.60003849962747,
+[36mnetzbremse-speedtest |[0m     upLoadedJitter: 25.626314631500527
+[36mnetzbremse-speedtest |[0m   }
+[36mnetzbremse-speedtest |[0m }
+[36mnetzbremse-speedtest |[0m Result: {
+[36mnetzbremse-speedtest |[0m   success: true,
+[36mnetzbremse-speedtest |[0m   result: {
+[36mnetzbremse-speedtest |[0m     download: 13327047.418921206,
+[36mnetzbremse-speedtest |[0m     upload: 8780270.03940427,
+[36mnetzbremse-speedtest |[0m     latency: 20.450059999254943,
+[36mnetzbremse-speedtest |[0m     jitter: 2.646139590297607,
+[36mnetzbremse-speedtest |[0m     downLoadedLatency: 103.60016899962747,
+[36mnetzbremse-speedtest |[0m     downLoadedJitter: 128.4737172637461,
+[36mnetzbremse-speedtest |[0m     upLoadedLatency: 64.0001165,
+[36mnetzbremse-speedtest |[0m     upLoadedJitter: 22.421050684406595
+[36mnetzbremse-speedtest |[0m   }
+[36mnetzbremse-speedtest |[0m }
+[36mnetzbremse-speedtest |[0m Result: {
+[36mnetzbremse-speedtest |[0m   success: true,
+[36mnetzbremse-speedtest |[0m   result: {
+[36mnetzbremse-speedtest |[0m     download: 15120492.474297492,
+[36mnetzbremse-speedtest |[0m     upload: 8294169.008171516,
+[36mnetzbremse-speedtest |[0m     latency: 21.049976500745057,
+[36mnetzbremse-speedtest |[0m     jitter: 15.743514333715412,
+[36mnetzbremse-speedtest |[0m     downLoadedLatency: 71.74990399813736,
+[36mnetzbremse-speedtest |[0m     downLoadedJitter: 37.178892684328176,
+[36mnetzbremse-speedtest |[0m     upLoadedLatency: 65.65016300037253,
+[36mnetzbremse-speedtest |[0m     upLoadedJitter: 30.31049736951904
+[36mnetzbremse-speedtest |[0m   }
+[36mnetzbremse-speedtest |[0m }
+[36mnetzbremse-speedtest |[0m Finished
+[36mnetzbremse-speedtest |[0m Restarting in 3600 sec

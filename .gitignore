@@ -1,2 +1,6 @@
 node_modules
 tmp-browser-data
+.local-dev
+
+# Ignore results folder for speedtest outputs
+results/
