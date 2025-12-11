@@ -14,7 +14,13 @@ if (!acceptedPrivacyPolicy) {
 // Print details about your connection
 const metaUrl = "https://speed.cloudflare.com/meta"
 try {
-	const resp = await fetch(metaUrl)
+	const resp = await fetch(metaUrl, {
+		  "referrer": "https://speed.cloudflare.com/",
+		  "body": null,
+		  "method": "GET",
+		  "mode": "cors",
+		  "credentials": "omit"
+	});
 	const { clientIp, asn, asOrganization, country } = await resp.json()
 	console.log("Your internet connection:")
 	console.log({
