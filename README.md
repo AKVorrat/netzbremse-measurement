@@ -61,6 +61,11 @@ To run the script reliably in the background create a Systemd service or use as 
 | `NB_SPEEDTEST_INTERVAL` | `3600` (1 hour) | No |
 | `NB_SPEEDTEST_URL` | `https://netzbremse.de/speed` | No |
 | `NB_SPEEDTEST_BROWSER_DATA_DIR` | `./tmp-browser-data` | No |
+| `NB_SPEEDTEST_JSON_OUT_DIR` | `undefined` | No |
+
+## Local Result Storage
+
+Set `NB_SPEEDTEST_JSON_OUT_DIR` to a writable directory path (e.g. `./json-results`) if you want each run to also persist its JSON output locally alongside the console log; when unset, results are only printed to stdout.
 
 ## Building the Image
 
