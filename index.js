@@ -58,7 +58,6 @@ async function runSpeedtest() {
 			await page.evaluate(() => window.nbSpeedtestOptions = { acceptedPolicy: true });
 		}
 
-
 		await page.exposeFunction("nbSpeedtestOnResult", async (result) => {
 			const jsonData = JSON.stringify(result, null, 2);
 			console.log(jsonData);
