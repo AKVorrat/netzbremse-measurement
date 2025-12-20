@@ -1,2 +1,5 @@
 node_modules
 tmp-browser-data
+
+# Ignore results folder for speedtest outputs
+json-results/*

@@ -61,6 +61,17 @@ To run the script reliably in the background create a Systemd service or use as 
 | `NB_SPEEDTEST_INTERVAL` | `3600` (1 hour) | No |
 | `NB_SPEEDTEST_URL` | `https://netzbremse.de/speed` | No |
 | `NB_SPEEDTEST_BROWSER_DATA_DIR` | `./tmp-browser-data` | No |
+| `NB_SPEEDTEST_JSON_OUT_DIR` | `undefined` | No |
+
+## Local Result Storage
+Edit the `docker-compose.yml` to include the environment variable and the volume mapping:
+
+```yml
+NB_SPEEDTEST_JSON_OUT_DIR: './json-results'
+
+volumes:
+  - ${NB_SPEEDTEST_JSON_OUT_DIR}:/app/json-results
+```
 
 ## Building the Image
 

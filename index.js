@@ -1,10 +1,13 @@
 import puppeteer from "puppeteer";
+import { promises as fs } from 'fs';
+import path from 'path';
 
 const url = process.env.NB_SPEEDTEST_URL || 'https://netzbremse.de/speed'
 const acceptedPrivacyPolicy = process.env.NB_SPEEDTEST_ACCEPT_POLICY?.toLowerCase() === "true"
 const testIntervalSec = parseInt(process.env.NB_SPEEDTEST_INTERVAL) || 3600
 const browserHeadless = process.env.NODE_ENV !== 'development'
 const browserUserDataDir = process.env.NB_SPEEDTEST_BROWSER_DATA_DIR || './tmp-browser-data'
+const resultsDir = process.env.NB_SPEEDTEST_JSON_OUT_DIR
 
 if (!acceptedPrivacyPolicy) {
 	console.log(`Please first read and accept the privacy policy by setting the environment variable NB_SPEEDTEST_ACCEPT_POLICY="true"`)
@@ -61,7 +64,22 @@ async function runSpeedtest() {
 			await page.evaluate(() => window.nbSpeedtestOptions = { acceptedPolicy: true });
 		}
 
-		await page.exposeFunction("nbSpeedtestOnResult", (result) => console.log("Result:", result))
+		await page.exposeFunction("nbSpeedtestOnResult", async (result) => {
+			const jsonData = JSON.stringify(result, null, 2);
+			console.log(jsonData);
+			
+			if(resultsDir) {
+				try {
+					const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+					await fs.mkdir(resultsDir, { recursive: true });
+					const filename = path.join(resultsDir, `speedtest-${timestamp}.json`);
+					await fs.writeFile(filename, jsonData, 'utf8');
+				} catch (err) {
+					console.error('Failed to save result:', err);
+				}
+			}
+		})
+		
 		const finished = new Promise(async (resolve) => await page.exposeFunction("nbSpeedtestOnFinished", () => resolve()))
 
 		console.log("Starting speedtest", new Date().toISOString())
