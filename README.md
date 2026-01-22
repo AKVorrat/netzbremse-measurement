@@ -104,6 +104,39 @@ volumes:
   - ${NB_SPEEDTEST_JSON_OUT_DIR}:/app/json-results
 ```
 
+## Dashboard
+
+A web-based dashboard is available to visualize your speedtest results. The dashboard auto-refreshes and provides interactive charts for download/upload speeds and latency metrics. It runs in a separate Docker container (./dashboard).
+
+built by [@lwndp](https://github.com/lwndp)
+
+**Quick start:**
+
+Run both containers with
+
+```bash
+docker compose up -d
+```
+
+or 
+
+```bash
+docker compose up -d --build
+```
+
+to build from source.
+
+The dashboard will be available at `http://localhost:8501`
+
+**Configuration:**
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DATA_DIR` | `/data` | Container path where JSON files are read from |
+| `REFRESH_INTERVAL_SECONDS` | `3600` | How often to reload data. Since the main app collects data every hour, it probably makes sense to leave the default value |
+
+The dashboard container automatically mounts the same `json-results` directory as the speedtest container via the volume configuration in `docker-compose.yml`. You typically don't need to change `DATA_DIR` unless you're using a custom setup.
+
 ## Building the Image
 
 ```bash
