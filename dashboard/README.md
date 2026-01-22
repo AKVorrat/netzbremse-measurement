@@ -31,7 +31,8 @@ export REFRESH_INTERVAL_SECONDS="60"
 
 Run the app:
 ```bash
-streamlit run app.py
+# make sure you are in /dashboard
+uv run streamlit run app/app.py
 ```
 
 ## Structure
