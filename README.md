@@ -87,12 +87,21 @@ npm start
 |----------|---------|----------|
 | `NB_SPEEDTEST_ACCEPT_POLICY` | - | **Yes** (set to `"true"`) |
 | `NB_SPEEDTEST_INTERVAL` | `3600` (1 hour) | No |
-| `NB_SPEEDTEST_TIMEOUT` | `900` (15 minutes) | No |
+| `NB_SPEEDTEST_TIMEOUT` | `3600` (1 hour) | No |
+| `NB_SPEEDTEST_RETRY_INTERVAL` | `900` (15 minutes) | No |
+| `NB_SPEEDTEST_RETRY_COUNT` | `3` | No |
 | `NB_SPEEDTEST_URL` | `https://netzbremse.de/speed` | No |
 | `NB_SPEEDTEST_BROWSER_DATA_DIR` | `./tmp-browser-data` | No |
 | `NB_SPEEDTEST_JSON_OUT_DIR` | `undefined` | No |
 
 **Timeout Configuration:** The `NB_SPEEDTEST_TIMEOUT` variable sets the maximum duration (in seconds) for each speedtest operation. This prevents the script from hanging indefinitely during failures.
+
+**Error Handling:** The script implements a retry mechanism with configurable parameters:
+- `NB_SPEEDTEST_RETRY_COUNT`: Maximum number of consecutive failures before exiting (default: 3)
+- `NB_SPEEDTEST_RETRY_INTERVAL`: Delay between retries after failures (default: 15 minutes)
+- After reaching the maximum retry count, the script will exit with code 1
+
+**Important:** When running in Docker, use restart policies like `restart: unless-stopped` in docker-compose.yml, or use a service manager like systemd to automatically restart the process after it exits due to consecutive failures.
 
 ## Local Result Storage
 Edit the `docker-compose.yml` to include the environment variable and the volume mapping:

@@ -5,7 +5,9 @@ import path from 'path';
 const url = process.env.NB_SPEEDTEST_URL || 'https://netzbremse.de/speed'
 const acceptedPrivacyPolicy = process.env.NB_SPEEDTEST_ACCEPT_POLICY?.toLowerCase() === "true"
 const testIntervalSec = parseInt(process.env.NB_SPEEDTEST_INTERVAL) || 3600
-const timeoutSec = parseInt(process.env.NB_SPEEDTEST_TIMEOUT) || 900 // 15 minutes default
+const timeoutSec = parseInt(process.env.NB_SPEEDTEST_TIMEOUT) || 3600
+const retryIntervalSec = parseInt(process.env.NB_SPEEDTEST_RETRY_INTERVAL) || 900
+const retryCount = parseInt(process.env.NB_SPEEDTEST_RETRY_COUNT) || 3
 const browserHeadless = process.env.NODE_ENV !== 'development'
 const browserUserDataDir = process.env.NB_SPEEDTEST_BROWSER_DATA_DIR || './tmp-browser-data'
 const resultsDir = process.env.NB_SPEEDTEST_JSON_OUT_DIR
@@ -123,15 +125,29 @@ async function runSpeedtest() {
 	}
 }
 
-while (true) {
+let errorCount = 0
+
+while (errorCount < retryCount) {
 	try {
 		// Overall timeout for entire speedtest operation
 		await withTimeout(runSpeedtest(), timeoutSec * 1000, 'Speedtest operation')
 		console.log(`[${new Date().toISOString()}] Finished successfully`)
+		errorCount = 0
+
+		const restartIn = Math.max(retryIntervalSec, 30)
+		console.log(`[${new Date().toISOString()}] Restarting in ${restartIn} sec`)
+		await delay(Math.max(testIntervalSec, 30) * 1000)
 	} catch (err) {
-		console.error(`[${new Date().toISOString()}] Error:`, err.message || err)
+		errorCount++
+		console.error(`[${new Date().toISOString()}] Error (${errorCount}/${retryCount}):`, err.message || err)
+
+		if (errorCount < retryCount) {
+			const restartIn = Math.max(retryIntervalSec, 30)
+			console.log(`[${new Date().toISOString()}] Restarting in ${restartIn} sec`)
+			await delay(Math.max(retryIntervalSec, 30) * 1000)
+		}
 	}
-	const restartIn = Math.max(testIntervalSec, 30)
-	console.log(`[${new Date().toISOString()}] Restarting in ${restartIn} sec`)
-	await delay(restartIn * 1000)
 }
+
+console.error(`[${new Date().toISOString()}] Maximum retry count (${retryCount}) reached. Exiting.`)
+process.exit(1)
