@@ -109,7 +109,7 @@ if not df.empty:
     st.sidebar.subheader("Chart Settings")
     aggregate_data = st.sidebar.checkbox(
         "Group by measurement run",
-        value=False,
+        value=True,
         help="Each run produces 5 data points. Enable to average them into single points. Makes cleaner charts.",
     )
 
