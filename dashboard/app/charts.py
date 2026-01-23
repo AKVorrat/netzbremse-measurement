@@ -40,7 +40,7 @@ def create_metric_line_chart(
             y=alt.Y(
                 f"{metric_key}:Q",
                 title=f"{metric_info['name']} ({metric_info['unit']})",
-                scale=alt.Scale(zero=False),
+                scale=alt.Scale(zero=True),
             ),
             tooltip=[
                 alt.Tooltip("timestamp:T", title="Time", format="%Y-%m-%d %H:%M"),
@@ -96,7 +96,7 @@ def create_speed_chart(
                 axis=alt.Axis(format="%H:%M", labelAngle=-45, tickCount="hour"),
                 scale=alt.Scale(domain=zoom_speed),
             ),
-            y=alt.Y("value:Q", title="Speed (Mbps)", scale=alt.Scale(zero=False)),
+            y=alt.Y("value:Q", title="Speed (Mbps)", scale=alt.Scale(zero=True)),
             color=alt.Color("metric:N", title="Metric"),
             tooltip=[
                 alt.Tooltip("timestamp:T", title="Time", format="%Y-%m-%d %H:%M"),
@@ -142,7 +142,7 @@ def create_latency_chart(
                 axis=alt.Axis(format="%H:%M", labelAngle=-45, tickCount="hour"),
                 scale=alt.Scale(domain=zoom_latency),
             ),
-            y=alt.Y("value:Q", title="Latency (ms)", scale=alt.Scale(zero=False)),
+            y=alt.Y("value:Q", title="Latency (ms)", scale=alt.Scale(zero=True)),
             color=alt.Color("metric:N", title="Metric"),
             tooltip=[
                 alt.Tooltip("timestamp:T", title="Time", format="%Y-%m-%d %H:%M"),
