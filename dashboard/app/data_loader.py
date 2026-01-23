@@ -19,12 +19,12 @@ METRICS = {
     "download": {
         "name": "Download",
         "unit": "Mbps",
-        "convert": lambda x: x * 8 / 1_000_000,
+        "convert": lambda x: x / 1_000_000,
     },
     "upload": {
         "name": "Upload",
         "unit": "Mbps",
-        "convert": lambda x: x * 8 / 1_000_000,
+        "convert": lambda x: x / 1_000_000,
     },
     "latency": {
         "name": "Latency",
@@ -165,7 +165,9 @@ def get_latest_measurements(df: pd.DataFrame, count: int = 5) -> pd.DataFrame:
     return df.tail(count).iloc[::-1]
 
 
-def aggregate_to_intervals(df: pd.DataFrame, interval_minutes: int = 10) -> pd.DataFrame:
+def aggregate_to_intervals(
+    df: pd.DataFrame, interval_minutes: int = 10
+) -> pd.DataFrame:
     """
     Aggregate measurements into time intervals.
 
