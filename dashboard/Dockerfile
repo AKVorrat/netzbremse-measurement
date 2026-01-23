@@ -2,34 +2,31 @@ FROM python:3.12-slim-bookworm
 
 WORKDIR /app
 
-# Install uv and curl in one layer
+# Install uv only (no curl/ca-certs bloat) — use system curl via APK equivalent
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl ca-certificates && \
     curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    apt-get remove -y curl ca-certificates && \
+    apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 ENV PATH="/root/.local/bin:$PATH"
 
-# Copy dependency files first for better layer caching
 COPY pyproject.toml uv.lock ./
 
-# Use uv's built-in caching and install dependencies
+# Install only runtime deps (no dev), then remove uv to save space
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev
+    uv sync --frozen --no-dev && \
+    rm -rf /root/.local/bin/uv
 
-# Copy application code (this layer changes most frequently)
 COPY . .
 
-# Environment variables with defaults
 ENV DATA_DIR=/data
 ENV REFRESH_INTERVAL_SECONDS=60
 
-# Expose Streamlit port
 EXPOSE 8501
 
-# Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8501/_stcore/health || exit 1
+    CMD .venv/bin/python -c "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=5)" || exit 1
 
-# Run Streamlit directly from venv (no uv sync at runtime)
 ENTRYPOINT [".venv/bin/python", "-m", "streamlit", "run", "app/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
