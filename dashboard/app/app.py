@@ -1,8 +1,10 @@
 """Netzbremse Speedtest Dashboard - Main Application."""
 
+from zoneinfo import ZoneInfo
+
 import streamlit as st
 
-from charts import create_combined_chart, create_metric_line_chart
+from charts import create_metric_line_chart
 from components import (
     render_header,
     render_latest_summary,
@@ -68,12 +70,31 @@ st.markdown(
 # Sidebar - simplified without logo
 st.sidebar.title("Settings")
 
+# Fixed timezone for all data
+DISPLAY_TIMEZONE = ZoneInfo("Europe/Berlin")
+
 # Main content
 render_header()
 
 # Load data
 with st.spinner("Loading data..."):
-    df = load_all_data()
+    df_utc = load_all_data()
+
+
+def convert_timezone(df_input):
+    """Convert timestamp column to Europe/Berlin timezone."""
+    if df_input.empty:
+        return df_input
+    df_out = df_input.copy()
+    # Ensure timestamp is timezone-aware (UTC), then convert to Berlin time
+    if df_out["timestamp"].dt.tz is None:
+        df_out["timestamp"] = df_out["timestamp"].dt.tz_localize("UTC")
+    df_out["timestamp"] = df_out["timestamp"].dt.tz_convert(DISPLAY_TIMEZONE)
+    return df_out
+
+
+# Convert to Europe/Berlin timezone for all data
+df = convert_timezone(df_utc)
 
 # Date range selector - First option in sidebar
 if not df.empty:
@@ -135,8 +156,16 @@ if not df.empty:
     st.sidebar.subheader("Export Data")
     import io
 
+    # Prepare export data with clear timezone in column name
+    export_df = df.copy()
+    export_df = export_df.rename(columns={"timestamp": "timestamp_Europe_Berlin"})
+    # Format timestamp as ISO 8601 with timezone offset for clarity
+    export_df["timestamp_Europe_Berlin"] = export_df[
+        "timestamp_Europe_Berlin"
+    ].dt.strftime("%Y-%m-%dT%H:%M:%S%z")
+
     csv_buffer = io.StringIO()
-    df.to_csv(csv_buffer, index=False)
+    export_df.to_csv(csv_buffer, index=False)
     csv_data = csv_buffer.getvalue()
 
     st.sidebar.download_button(
@@ -144,7 +173,7 @@ if not df.empty:
         data=csv_data,
         file_name="speedtest_data.csv",
         mime="text/csv",
-        help="Download the raw data as a CSV file",
+        help="Download data as CSV (timestamps in Europe/Berlin timezone)",
         width="stretch",
     )
     st.sidebar.caption(f"Loaded {len(df)} measurements\n({from_date} to {to_date})")
@@ -202,3 +231,7 @@ if latency_metrics:
     latency_chart = create_latency_chart(chart_df, latency_metrics)
     if latency_chart:
         st.altair_chart(latency_chart, width="stretch")
+
+# Footer with timezone information
+st.markdown("---")
+st.caption("All timestamps are displayed in Europe/Berlin timezone (CET/CEST).")

@@ -31,8 +31,10 @@ def render_latest_summary(df: pd.DataFrame):
     latest_timestamp = df.iloc[-1]["timestamp"]
 
     st.subheader("Latest Measurement")
+    # Format timestamp with timezone name from the timestamp itself
+    tz_name = latest_timestamp.strftime("%Z") if latest_timestamp.tzinfo else ""
     st.caption(
-        f"Recorded at: {latest_timestamp.strftime('%Y-%m-%d %H:%M:%S UTC')} (last of the set)"
+        f"Recorded at: {latest_timestamp.strftime('%Y-%m-%d %H:%M:%S')} {tz_name} (last of the set)"
     )
 
     col1, col2, col3, col4 = st.columns(4)
