@@ -33,10 +33,16 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Custom CSS for brand color buttons
+# Custom CSS for brand color buttons and reduced spacing
 st.markdown(
     """
     <style>
+    .block-container {
+        padding-top: 1rem;
+    }
+    .stTitle {
+        margin-top: -1.5rem;
+    }
     .stButton > button {
         background-color: #e91e63;
         color: white;
