@@ -1,9 +1,6 @@
 """Netzbremse Speedtest Dashboard - Main Application."""
 
-import time
-
 import streamlit as st
-from streamlit_autorefresh import st_autorefresh
 
 from charts import create_combined_chart, create_metric_line_chart
 from components import (
@@ -68,13 +65,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Auto-refresh every second to update countdown
-st_autorefresh(interval=5000, limit=None, key="auto_refresh")
-
-# Calculate approximate countdown until next data refresh
-time_in_interval = time.time() % REFRESH_INTERVAL_SECONDS
-countdown = int(REFRESH_INTERVAL_SECONDS - time_in_interval)
-
 # Sidebar - simplified without logo
 st.sidebar.title("Settings")
 
@@ -130,7 +120,6 @@ refresh_note = (
 st.sidebar.caption(
     f"The dashboard refreshes data from the linked directory automatically every {refresh_note}. You can also manually refresh it any time."
 )
-st.sidebar.info(f"Next automatic refresh in {countdown}s")
 
 if st.sidebar.button("Manual Refresh", width="stretch"):
     st.cache_data.clear()
