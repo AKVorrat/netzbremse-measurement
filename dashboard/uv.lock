@@ -367,6 +367,7 @@ version = "1.0.0"
 source = { virtual = "." }
 dependencies = [
     { name = "pandas" },
+    { name = "pyarrow" },
     { name = "streamlit" },
     { name = "streamlit-autorefresh" },
     { name = "watchdog" },
@@ -382,6 +383,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "pandas", specifier = ">=2.0.0" },
+    { name = "pyarrow", specifier = ">=14.0.0" },
     { name = "streamlit", specifier = ">=1.28.0" },
     { name = "streamlit-autorefresh", specifier = ">=1.0.1" },
     { name = "watchdog", specifier = ">=6.0.0" },
