@@ -139,12 +139,16 @@ if not df.empty:
     min_date = df["timestamp"].min().date()
     max_date = df["timestamp"].max().date()
 
+    # Versioned key pattern: changing the key forces a fresh widget instance
+    date_filter_key = f"date_range_filter_v{st.session_state.get('_date_filter_v', 0)}"
+
     date_range = st.sidebar.date_input(
         "Select date range",
         value=(min_date, max_date),
         min_value=min_date,
         max_value=max_date,
         help="Filter data by date range",
+        key=date_filter_key,
     )
 
     # Apply date filter if range is selected
@@ -163,6 +167,18 @@ if not df.empty:
             len(df),
         )
         st.sidebar.caption(f"Filtered to {len(df)} measurements")
+
+    def reset_date_filter():
+        """Increment version to force new widget, clean up old key."""
+        logger.info("Date range reset by user")
+        old_version = st.session_state.get("_date_filter_v", 0)
+        st.session_state["_date_filter_v"] = old_version + 1
+        # Clean up old key to avoid accumulation
+        old_key = f"date_range_filter_v{old_version}"
+        if old_key in st.session_state:
+            del st.session_state[old_key]
+
+    st.sidebar.button("Reset Date Range", on_click=reset_date_filter)
 
     # Chart settings
     st.sidebar.markdown("---")
