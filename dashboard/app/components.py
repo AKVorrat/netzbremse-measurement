@@ -21,7 +21,7 @@ def render_latest_summary(df: pd.DataFrame):
 
     # Average the last 5 measurements (one complete test run) for accurate values
     latest = df.iloc[-5:].mean(numeric_only=True)
-    latest_timestamp = df.iloc[-1]["timestamp"]
+    latest_timestamp = df["timestamp"].max()  # Most recent measurement timestamp
 
     st.subheader("Latest Measurement")
     # Format timestamp with timezone name from the timestamp itself
