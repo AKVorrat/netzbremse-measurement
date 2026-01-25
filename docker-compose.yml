@@ -12,4 +12,4 @@ services:
           memory: 1G
           cpus: '1'
 #    volumes:
-#      - ${NB_SPEEDTEST_JSON_OUT_DIR}:/app/json-results
+#      - ${NB_SPEEDTEST_JSON_OUT_DIR:-./json-results}:/app/json-results
