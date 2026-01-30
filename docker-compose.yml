@@ -3,13 +3,16 @@ services:
     image: ghcr.io/akvorrat/netzbremse-measurement:latest
     container_name: netzbremse-speedtest
     restart: unless-stopped
-#    environment:
-#      NB_SPEEDTEST_ACCEPT_POLICY: true
-#      NB_SPEEDTEST_JSON_OUT_DIR: './json-results'
-    deploy:
+    environment:
+      # TODO: Read the privacy policy at https://netzbremse.de/speed and
+      # Cloudflare terms at https://www.cloudflare.com/privacypolicy/
+      # Set to "true" to accept the policies
+      NB_SPEEDTEST_ACCEPT_POLICY: false
+      NB_SPEEDTEST_JSON_OUT_DIR: './json-results' # Optional: Stores results as JSON files in a local folder (required for data visualization)
+    volumes:
+      - ./json-results:/app/json-results
+    deploy: # Optional: Sensible resource limits, remove this section if not supported by your platform
       resources:
         limits:
           memory: 1G
           cpus: '1'
-#    volumes:
-#      - ${NB_SPEEDTEST_JSON_OUT_DIR:-./json-results}:/app/json-results

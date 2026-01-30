@@ -1,8 +1,8 @@
 # Netzbremse Headless Speedtest
 
-Automated speedtest runner using Puppeteer to periodically test peering bottlenecks form your Deutsche Telekom internet connection.
+Automated speedtest runner using Puppeteer to periodically test peering bottlenecks from your Deutsche Telekom internet connection.
 
-To learn more about the campaign go to our [website](https://netzbremse.de) and try the [speedtest](https://netzbremse.de/speed) in the browser.
+To learn more about the campaign go to our [website](https://netzbremse.de/en/) and try the [speedtest](https://netzbremse.de/en/speed) in the browser.
 
 By running this test you are supporting our claim with anonymized real world measurements in accordance with the privacy policy.
 
@@ -42,6 +42,24 @@ It is also possible to build your own image for different architectures by cloni
 docker compose -f docker-compose.build.yml build
 ```
 
+## Data Visualization
+
+At the moment this tool does not have a built-in solution for visualizing the measurements over time. Thankfully there is a community-provided [Streamlit dashboard](https://github.com/lwndp/netzbremse-dashboard/) by [@lwndp](https://github.com/lwndp) that runs as a separate container alongside the speedtest container.
+
+To get started, clone this repository or download [`docker-compose.dashboard.yml`](https://raw.githubusercontent.com/AKVorrat/netzbremse-measurement/refs/heads/main/docker-compose.dashboard.yml) in addition to [`docker-compose.yml`](https://raw.githubusercontent.com/AKVorrat/netzbremse-measurement/refs/heads/main/docker-compose.yml) and save both files in the same folder. 
+
+Use the following command to start both the speedtest and dashboard containers.
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dashboard.yml up -d
+```
+
+After a few seconds the dashboard should be reachable under ```http://[your-systems-ip-address]:8501```.
+
+> **⚠️ WARNING:** The default configuration opens a port and exposes the dashboard publicly. Please make sure you know what you are doing. 
+
+To learn more about how to set up the dashboard go to https://github.com/lwndp/netzbremse-dashboard/. 
+
 ## Run using Node.js (without Docker)
 
 Clone this repository:
@@ -58,7 +76,7 @@ export NB_SPEEDTEST_ACCEPT_POLICY="true"
 npm start
 ```
 
-To run the script reliably in the background create a Systemd service or use as process manager like PM2.
+To run the script reliably in the background, create a Systemd service or use a process manager like PM2.
 
 > **Note:** The script is developed and tested on Linux. The instructions can probably be adapted to run the script on other platforms.
 
@@ -106,7 +124,8 @@ npm start
 **Important:** When running in Docker, use restart policies like `restart: unless-stopped` in docker-compose.yml, or use a service manager like systemd to automatically restart the process after it exits due to consecutive failures.
 
 ## Local Result Storage
-Edit the `docker-compose.yml` to include the environment variable and the volume mapping:
+
+To store speedtest results locally as JSON files, edit the `docker-compose.yml` to include the environment variable and the volume mapping:
 
 ```yml
 NB_SPEEDTEST_JSON_OUT_DIR: './json-results'
