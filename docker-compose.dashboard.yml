@@ -1,0 +1,20 @@
+services:
+  netzbremse-dashboard:
+    image: ghcr.io/lwndp/netzbremse-dashboard:latest
+    container_name: netzbremse-dashboard
+    restart: unless-stopped
+    environment:
+      REFRESH_INTERVAL_SECONDS: 3600
+      LOG_LEVEL: "INFO" # Options: DEBUG, INFO, WARNING, ERROR
+    volumes:
+      - ./json-results:/data:ro
+    ports:
+      - "8501:8501" 
+      # Alternatively use "127.0.0.1:8501:8501" if you don't want to expose the port to other systems. You can still 
+      # reach the dashboard on localhost and for example via ssh port forwarding from a remote system.
+    deploy: # Optional: Sensible resource limits, remove this section if not supported by your platform
+      resources:
+        limits:
+          memory: 256M
+          cpus: "0.5"
+
