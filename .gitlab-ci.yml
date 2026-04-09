@@ -8,7 +8,7 @@ netzbremse-measurement:
     NB_SPEEDTEST_RETRY_COUNT:	3
     NB_SPEEDTEST_URL: https://netzbremse.de/speed
     NB_SPEEDTEST_BROWSER_DATA_DIR: ./tmp-browser-data
-    NB_SPEEDTEST_JSON_OUT_DIR: "./json-results"
+    NB_SPEEDTEST_JSON_OUT_DIR: "$CI_PROJECT_DIR/json-results"
   artifacts:
     paths:
       - json-results/
