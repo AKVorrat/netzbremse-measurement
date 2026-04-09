@@ -1,5 +1,9 @@
 netzbremse-measurement:
-  image: ghcr.io/akvorrat/netzbremse-measurement:latest
+  image:
+    name: ghcr.io/akvorrat/netzbremse-measurement:latest
+    entrypoint: [""]
+  script:
+    - npm start
   variables:
     NB_SPEEDTEST_ACCEPT_POLICY: "true"
     NB_SPEEDTEST_INTERVAL: 0
