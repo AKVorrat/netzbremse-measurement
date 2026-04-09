@@ -1,4 +1,4 @@
-netzbremse-speedtest:
+netzbremse-measurement:
   image: ghcr.io/akvorrat/netzbremse-measurement:latest
   variables:
     NB_SPEEDTEST_ACCEPT_POLICY: "true"
