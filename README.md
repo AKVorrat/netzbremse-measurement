@@ -2,22 +2,22 @@
 
 Automated speedtest runner using Puppeteer to periodically test peering bottlenecks from your Deutsche Telekom internet connection.
 
-To learn more about the campaign go to our [website](https://netzbremse.de/en/) and try the [speedtest](https://netzbremse.de/en/speed) in the browser.
+To learn more about the campaign, go to our [website](https://netzbremse.de/en/) and try the [speedtest](https://netzbremse.de/en/speed) in the browser.
 
-By running this test you are supporting our claim with anonymized real world measurements in accordance with the privacy policy.
+By running this test, you are supporting our claim with anonymised real-world measurements in accordance with the privacy policy.
 
 ## Quick Start using Docker
 
 Download the [`docker-compose.yml`](https://raw.githubusercontent.com/AKVorrat/netzbremse-measurement/refs/heads/main/docker-compose.yml) file.
 
-Read our privacy policy on the [website](https://netzbremse.de/speed) (visible when starting the speedtest for the first time) and edit the `docker-compose.yml` file to accept the [Cloudflare terms](https://www.cloudflare.com/de-de/privacypolicy/).
+Read our privacy policy on the [website](https://netzbremse.de/speed) (visible when starting the speed test for the first time) and edit the `docker-compose.yml` file to accept the [Cloudflare terms](https://www.cloudflare.com/de-de/privacypolicy/).
 
 ```yml
 environment: 
   NB_SPEEDTEST_ACCEPT_POLICY: true
 ```
 
-Start the container to enable periodic speedtests running in the background.
+Start the container to enable periodic speed tests running in the background.
 
 ```bash
 docker compose up -d
@@ -29,7 +29,7 @@ View the results with:
 docker compose logs -f
 ```
 
-Anonymized results are automatically submitted to our data collection service.
+Anonymised results are automatically submitted to our data collection service.
 
 Pre-built Docker images are provided for:
 
@@ -42,9 +42,9 @@ It is also possible to build your own image for different architectures by cloni
 docker compose -f docker-compose.build.yml build
 ```
 
-## Data Visualization
+## Data Visualisation
 
-At the moment this tool does not have a built-in solution for visualizing the measurements over time. Thankfully there is a community-provided [Streamlit dashboard](https://github.com/lwndp/netzbremse-dashboard/) by [@lwndp](https://github.com/lwndp) that runs as a separate container alongside the speedtest container.
+At the moment, this tool does not have a built-in solution for visualising the measurements over time. Thankfully there is a community-provided [Streamlit dashboard](https://github.com/lwndp/netzbremse-dashboard/) by [@lwndp](https://github.com/lwndp) that runs as a separate container alongside the speedtest container.
 
 To get started, clone this repository or download [`docker-compose.dashboard.yml`](https://raw.githubusercontent.com/AKVorrat/netzbremse-measurement/refs/heads/main/docker-compose.dashboard.yml) in addition to [`docker-compose.yml`](https://raw.githubusercontent.com/AKVorrat/netzbremse-measurement/refs/heads/main/docker-compose.yml) and save both files in the same folder. 
 
@@ -54,11 +54,11 @@ Use the following command to start both the speedtest and dashboard containers.
 docker compose -f docker-compose.yml -f docker-compose.dashboard.yml up -d
 ```
 
-After a few seconds the dashboard should be reachable under ```http://[your-systems-ip-address]:8501```.
+After a few seconds, the dashboard should be reachable under ```http://[your-systems-ip-address]:8501```.
 
 > **⚠️ WARNING:** The default configuration opens a port and exposes the dashboard publicly. Please make sure you know what you are doing. 
 
-To learn more about how to set up the dashboard go to https://github.com/lwndp/netzbremse-dashboard/. 
+To learn more about how to set up the dashboard, go to https://github.com/lwndp/netzbremse-dashboard/. 
 
 ## Run using Node.js (without Docker)
 
@@ -147,3 +147,8 @@ You should monitor your system or at least periodically check system metrics whi
 The script launches a headless Chromium instance in the background. In some cases, orphaned browser processes may not be cleaned up properly, or the disk may fill up with leftover Chromium profile data.
 
 *The author speaks from personal experience with similar scripts in the past.*
+
+## Running in GitLab CI/CD
+
+You can run this speed test via GitLab CI/CD on your own GitLab runner.
+See [examples/gitlab/.gitlab-ci.yml](examples/gitlab/.gitlab-ci.yml) for such a pipeline job definition.
