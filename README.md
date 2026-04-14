@@ -44,7 +44,11 @@ docker compose -f docker-compose.build.yml build
 
 ## Data Visualisation
 
-At the moment, this tool does not have a built-in solution for visualising the measurements over time. Thankfully there is a community-provided [Streamlit dashboard](https://github.com/lwndp/netzbremse-dashboard/) by [@lwndp](https://github.com/lwndp) that runs as a separate container alongside the speedtest container.
+At the moment, this tool does not have a built-in solution for visualising the measurements over time.
+
+### Streamlit
+
+There is a community-provided [Streamlit dashboard](https://github.com/lwndp/netzbremse-dashboard/) by [@lwndp](https://github.com/lwndp) that runs as a separate container alongside the speedtest container.
 
 To get started, clone this repository or download [`docker-compose.dashboard.yml`](https://raw.githubusercontent.com/AKVorrat/netzbremse-measurement/refs/heads/main/docker-compose.dashboard.yml) in addition to [`docker-compose.yml`](https://raw.githubusercontent.com/AKVorrat/netzbremse-measurement/refs/heads/main/docker-compose.yml) and save both files in the same folder. 
 
@@ -59,6 +63,10 @@ After a few seconds, the dashboard should be reachable under ```http://[your-sys
 > **⚠️ WARNING:** The default configuration opens a port and exposes the dashboard publicly. Please make sure you know what you are doing. 
 
 To learn more about how to set up the dashboard, go to https://github.com/lwndp/netzbremse-dashboard/. 
+
+### Grafana/Loki/Alloy
+
+There is a community-provided [Grafana dashboard (ID 25163)](https://grafana.com/grafana/dashboards/25163) by [@TheGameProfi](https://github.com/TheGameProfi) available. See [`grafana_dashboard.md`](./grafana_dashboard.md) for setup instructions.
 
 ## Run using Node.js (without Docker)
 
