@@ -1,0 +1,34 @@
+services:
+  speedtest:
+    image: ghcr.io/akvorrat/netzbremse-measurement:latest
+    container_name: netzbremse-speedtest
+    restart: unless-stopped
+    environment:
+      # TODO: Read the privacy policy at https://netzbremse.de/speed and
+      # Cloudflare terms at https://www.cloudflare.com/privacypolicy/
+      # Set to "true" to accept the policies
+      NB_SPEEDTEST_ACCEPT_POLICY: true
+      NB_SPEEDTEST_JSON_OUT_DIR: '/app/json-results'
+      NB_SPEEDTEST_BROWSER_DATA_DIR: '/tmp/browser-data'
+      HOME: '/tmp'
+      XDG_CONFIG_HOME: '/tmp/.config'
+      XDG_CACHE_HOME: '/tmp/.cache'
+      TMPDIR: '/tmp'
+      NODE_ENV: 'production'
+    volumes:
+      - results:/app/json-results
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=512m
+    security_opt:
+      - no-new-privileges:true
+    deploy: # Optional: Sensible resource limits, remove this section if not supported by your platform
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
+
+volumes:
+  results:

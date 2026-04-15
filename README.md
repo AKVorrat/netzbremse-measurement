@@ -42,6 +42,30 @@ It is also possible to build your own image for different architectures by cloni
 docker compose -f docker-compose.build.yml build
 ```
 
+## Hardened Docker Compose Example
+
+If you want to run the container with stricter security settings (read-only filesystem, dropped Linux capabilities, `no-new-privileges`, and isolated temporary runtime paths), use [`examples/docker-compose.hardened.yml`](examples/docker-compose.hardened.yml).
+
+This example is based on the community contribution from [@lennartdohmann](https://github.com/lennartdohmann) in [issue #28](https://github.com/AKVorrat/netzbremse-measurement/issues/28).
+
+Start it with:
+
+```bash
+docker compose -f examples/docker-compose.hardened.yml up -d
+```
+
+Follow logs with:
+
+```bash
+docker compose -f examples/docker-compose.hardened.yml logs -f
+```
+
+This hardened setup stores local JSON results in a Docker volume named `results`.
+
+> **Note:** You still need to read and accept the privacy policy and Cloudflare terms by setting `NB_SPEEDTEST_ACCEPT_POLICY: true` in the compose file.
+
+> **Optional hardening:** You can combine this with Docker daemon `userns-remap` if available on your system.
+
 ## Data Visualisation
 
 At the moment, this tool does not have a built-in solution for visualising the measurements over time. Thankfully there is a community-provided [Streamlit dashboard](https://github.com/lwndp/netzbremse-dashboard/) by [@lwndp](https://github.com/lwndp) that runs as a separate container alongside the speedtest container.
