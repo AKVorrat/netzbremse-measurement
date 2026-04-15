@@ -66,7 +66,7 @@ To learn more about how to set up the dashboard, go to https://github.com/lwndp/
 
 ### Grafana/Loki/Alloy
 
-There is a community-provided [Grafana dashboard (ID 25163)](https://grafana.com/grafana/dashboards/25163) by [@TheGameProfi](https://github.com/TheGameProfi) available. See [`grafana_dashboard.md`](./grafana_dashboard.md) for setup instructions.
+There is a community-provided Grafana dashboard [(`dashboard.json`)](./docs/grafana_dashboard.json)/[(ID 25163)](https://grafana.com/grafana/dashboards/25163) by [@TheGameProfi](https://github.com/TheGameProfi) available. See [`grafana_dashboard.md`](./docs/grafana_dashboard.md) for setup instructions.
 
 ## Run using Node.js (without Docker)
 
