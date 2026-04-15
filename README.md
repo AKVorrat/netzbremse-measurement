@@ -44,25 +44,15 @@ docker compose -f docker-compose.build.yml build
 
 ## Hardened Docker Compose Example
 
-If you want to run the container with stricter security settings (read-only filesystem, dropped Linux capabilities, `no-new-privileges`, and isolated temporary runtime paths), use [`examples/docker-compose.hardened.yml`](examples/docker-compose.hardened.yml).
+If you want to run the containers with stricter security settings (read-only filesystem, dropped Linux capabilities, `no-new-privileges`, and isolated temporary runtime paths), use the files in [`examples/hardened/`](examples/hardened/):
 
-This example is based on the community contribution from [@lennartdohmann](https://github.com/lennartdohmann) in [issue #28](https://github.com/AKVorrat/netzbremse-measurement/issues/28).
+- [`examples/hardened/docker-compose.yml`](examples/hardened/docker-compose.yml)
+- [`examples/hardened/docker-compose.dashboard.yml`](examples/hardened/docker-compose.dashboard.yml)
+    - The port `8501` is bound to localhost only (`127.0.0.1:8501`)
 
-Start it with:
+This setup is based on the community contribution from [@lennartdohmann](https://github.com/lennartdohmann) in [issue #28](https://github.com/AKVorrat/netzbremse-measurement/issues/28).
 
-```bash
-docker compose -f examples/docker-compose.hardened.yml up -d
-```
-
-Follow logs with:
-
-```bash
-docker compose -f examples/docker-compose.hardened.yml logs -f
-```
-
-This hardened setup stores local JSON results in a Docker volume named `results`.
-
-> **Note:** You still need to read and accept the privacy policy and Cloudflare terms by setting `NB_SPEEDTEST_ACCEPT_POLICY: true` in the compose file.
+This particular hardened setup stores local JSON results in a Docker volume named `results`.
 
 > **Optional hardening:** You can combine this with Docker daemon `userns-remap` if available on your system.
 
