@@ -1,0 +1,27 @@
+services:
+  netzbremse-dashboard:
+    image: ghcr.io/lwndp/netzbremse-dashboard:latest
+    container_name: netzbremse-dashboard
+    restart: unless-stopped
+    environment:
+      REFRESH_INTERVAL_SECONDS: 3600
+      LOG_LEVEL: "INFO" # Options: DEBUG, INFO, WARNING, ERROR
+    volumes:
+      - results:/data:ro
+    ports:
+      - "127.0.0.1:8501:8501"
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    security_opt:
+      - no-new-privileges:true
+    deploy: # Optional: Sensible resource limits, remove this section if not supported by your platform
+      resources:
+        limits:
+          memory: 256M
+          cpus: "0.5"
+
+volumes:
+  results:
