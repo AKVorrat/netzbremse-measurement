@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libxshmfence1 \
   libglu1-mesa \
   chromium \
+  tini \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -34,4 +35,5 @@ RUN npm ci
 
 COPY . .
 
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["node", "index.js"]
