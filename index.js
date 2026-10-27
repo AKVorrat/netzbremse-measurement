@@ -91,7 +91,7 @@ async function runSpeedtest() {
 					const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 					await fs.mkdir(resultsDir, { recursive: true });
 					const filename = path.join(resultsDir, `speedtest-${timestamp}.json`);
-					await fs.writeFile(filename, jsonData, 'utf8');
+					await fs.writeFile(filename, jsonData + '\n', 'utf8');
 				} catch (err) {
 					console.error('Failed to save result:', err);
 				}
